@@ -11,7 +11,7 @@ function App() {
   // Backend se tasks fetch karna
   async function refreshTasks() {
     try {
-      const response = await fetch("http://localhost:5000/todo");
+      const response = await fetch("https://to-do-frontend-jgzz.vercel.app/todo");
 
       if (!response.ok) {
         throw new Error("Failed to fetch tasks");
@@ -34,7 +34,7 @@ function App() {
 
   async function addTask(task) {
     try {
-      const response = await fetch("http://localhost:5000/todo", {
+      const response = await fetch("https://to-do-frontend-jgzz.vercel.app/todo", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
