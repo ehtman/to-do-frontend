@@ -58,7 +58,7 @@ function App() {
 
   async function addTask(task) {
     try {
-      const response = await fetch(API_URL2, {
+      const response = await fetch(API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
