@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-const API_URL = import.meta.env.VITE_API_URL_Two;
+const API_URL = import.meta.env.USER_ROUTES;
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,7 +12,7 @@ async function handleSubmit(e) {
   e.preventDefault();
 
   try {
-    const response = await fetch(`${VITE_API_URL_Two}/login`, {
+    const response = await fetch(`${API_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
