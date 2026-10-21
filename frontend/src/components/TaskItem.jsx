@@ -1,4 +1,4 @@
-function TaskItem({ task, index, toggleTask }) {
+function TaskItem({ task, index, toggleTask, deleteTask }) {
   return (
     <div className="flex items-center gap-3 border-b border-gray-100 py-4">
       <input
@@ -17,6 +17,15 @@ function TaskItem({ task, index, toggleTask }) {
       >
         {task.title}
       </p>
+
+      <button
+        onClick={() => deleteTask(task._id)}
+        className="text-red-500 hover:text-red-700 p-2 rounded-lg hover:bg-red-50 transition"
+        title="Delete task"
+      >
+        🗑️
+      </button>
+      
     </div>
   );
 }

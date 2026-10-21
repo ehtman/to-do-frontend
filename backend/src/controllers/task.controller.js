@@ -1,19 +1,14 @@
-
 import Task from "../models/task.model.js";
+import { createTaskSchema, taskIdSchema } from "../validations/task.validation.js";
 
 // POST: Create a new task
 export const createTask = async (req, res) => {
     try {
-        const { title, completed } = req.body;
-
-        if (!title || !title.trim()) {
-            return res.status(400).json({
-                message: "Task title is required"
-            });
-        }
+        // .parse() validates the body and throws an error if invalid
+        const { title, completed } = createTaskSchema.parse(req.body);
 
         const task = await Task.create({
-            title: title.trim(),
+            title,
             completed: completed ?? false
         });
 
@@ -22,6 +17,14 @@ export const createTask = async (req, res) => {
             task
         });
     } catch (error) {
+        // If Zod throws an error, return 400 with details
+        if (error.errors) {
+            return res.status(400).json({
+                message: "Validation failed",
+                errors: error.errors
+            });
+        }
+
         return res.status(500).json({
             message: "Failed to create task",
             error: error.message
@@ -49,13 +52,8 @@ export const getTasks = async (req, res) => {
 // DELETE: Delete a task by its MongoDB ID
 export const deleteTask = async (req, res) => {
     try {
-        const { id } = req.params;
-
-        if (!/^[0-9a-fA-F]{24}$/.test(id)) {
-            return res.status(400).json({
-                message: "Invalid task ID"
-            });
-        }
+        // .parse() validates req.params instead of manual regex matching
+        const { id } = taskIdSchema.parse(req.params);
 
         const task = await Task.findByIdAndDelete(id);
 
@@ -70,6 +68,14 @@ export const deleteTask = async (req, res) => {
             task
         });
     } catch (error) {
+        // If Zod validation for ID fails, return 400
+        if (error.errors) {
+            return res.status(400).json({
+                message: "Validation failed",
+                errors: error.errors
+            });
+        }
+
         return res.status(500).json({
             message: "Failed to delete task",
             error: error.message
