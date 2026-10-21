@@ -19,7 +19,7 @@ async function handleSubmit(e) {
   }
 
   try {
-    const response = await fetch("http://localhost:5000/user/signup", {
+    const response = await fetch(`${VITE_API_URL_Two}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
