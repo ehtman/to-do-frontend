@@ -2,8 +2,12 @@ import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import AddTask from "./components/AddTask";
-
+import PublicHome from "./public/Home";
 const API_URL = import.meta.env.VITE_API_URL;
+import { Route, Routes } from "react-router-dom";
+import Login from "./public/Login";
+import Signup from "./public/Signup";
+import NotFound from "./components/NotFound";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -98,19 +102,32 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Navbar />
+      <Routes>
+        <Route path="/" element={<PublicHome />} />
+        <Route
+          path="/todo"
+          element={
+            <>
+              <Navbar />
 
-      {showForm ? (
-        <AddTask addTask={addTask} goBack={() => setShowForm(false)} />
-      ) : (
-        <Home
-          tasks={tasks}
-          openForm={() => setShowForm(true)}
-          toggleTask={toggleTask}
-          refreshTasks={refreshTasks}
-          deleteTask={deleteTask}
+              {showForm ? (
+                <AddTask addTask={addTask} goBack={() => setShowForm(false)} />
+              ) : (
+                <Home
+                  tasks={tasks}
+                  openForm={() => setShowForm(true)}
+                  toggleTask={toggleTask}
+                  refreshTasks={refreshTasks}
+                  deleteTask={deleteTask}
+                />
+              )}
+            </>
+          }
         />
-      )}
+          <Route path="/login" element={<Login />} />
+  <Route path="/signup" element={<Signup />} />
+  <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 }
