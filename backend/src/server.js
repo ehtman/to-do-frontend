@@ -5,6 +5,7 @@ import dns from "node:dns";
 import cors from "cors"
 import connectDB from "./config/db.js";
 import taskRoutes from "./routes/task.route.js";
+import userRoutes from "./routes/user.route.js"
 
 // DNS workaround: retain this if your MongoDB SRV
 // lookup still fails with your normal DNS resolver.
@@ -26,7 +27,7 @@ app.get("/", (req, res) => {
 
 // To-Do routes
 app.use("/todo", taskRoutes);
-
+app.use("/user", userRoutes);
 // Start server after connecting to MongoDB
 const PORT = process.env.PORT || 5000;
 
