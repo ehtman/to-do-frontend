@@ -16,7 +16,7 @@ function App() {
   // Backend se tasks fetch karna
   async function refreshTasks() {
     try {
-      const response = await fetch(API_URL);
+      const response = await fetch(`${API_URL}/todo/`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch tasks");
@@ -35,7 +35,7 @@ function App() {
   // Backend se task delete karna
   async function deleteTask(id) {
     try {
-      const response = await fetch(`${API_URL}/${id}`, {
+      const response = await fetch(`${API_URL}/todo/${id}`, {
         method: "DELETE",
       });
 
@@ -62,7 +62,7 @@ function App() {
 
   async function addTask(task) {
     try {
-      const response = await fetch(API_URL, {
+      const response = await fetch(`${API_URL}/todo`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
