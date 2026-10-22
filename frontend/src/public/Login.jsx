@@ -51,7 +51,7 @@ async function handleSubmit(e) {
         </Link>
 
         <h1 className="mt-8 text-3xl font-bold text-gray-800">
-          Welcome back!
+          Welcome back! Try to make your todos
         </h1>
         <p className="mt-2 text-gray-500">
           Login to manage your daily tasks.
